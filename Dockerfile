@@ -1,10 +1,11 @@
 # escape=`
-FROM nanori/windows-java:8u91-jre-windowsservercore
-SHELL ["powershell"]
+FROM nanori/windows-java:8u111-jre-windowsservercore
+SHELL ["powershell.exe"]
 
-ENV JENKINS_HOME "c:\\jenkins\\"
-COPY start_slave.ps1 "$JENKINS_HOME"
+ENV JENKINS_HOME c:\jenkins\
+RUN mkdir $env:JENKINS_HOME
+COPY start_slave.ps1 "$env:JENKINS_HOME"
 
-WORKDIR $JENKINS_HOME
+WORKDIR c:\\jenkins\\
 ENTRYPOINT ["powershell.exe"]
 CMD ["-f", "c:\\jenkins\\start_slave.ps1"]
